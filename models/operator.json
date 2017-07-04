@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Дата создания",
+    "type": "date",
+    "name": "dt",
+    "system": true
+  },
+  {
+    "title": "Логин",
+    "name": "login"
+  },
+  {
+    "title": "Пароль",
+    "name": "password",
+    "help": "Оставьте пустым, если не нужно менять",
+    "formOnly": true
+  }
+]

@@ -10,22 +10,26 @@ module.exports = gulp.task('default', function () {
   });
   gulp.watch('index.html', ['copy-index']);
   gulp.watch('m/**/*', ['copy-m']);
+
   gulp.watch([
-      process.env.NGN_ENV_FOLDER + '/ngn/i/js/ngn/**/*.js',
-      process.env.NGN_ENV_FOLDER + '/ngn/i/css/**/*.css',
-    'src/**/*'
+    process.env.NGN_ENV_FOLDER + '/ngn/i/js/ngn/**/*.js',
+    process.env.NGN_ENV_FOLDER + '/ngn/i/css/**/*.css',
+    'src/js/**/*'
   ], ['ngn-build']);
 
+  var timeoutId;
   gulp.watch([
     'build/public/m/css/*.css',
     'build/public/m/js/*.js',
     'build/public/index.html'
-  ]).on('change', function() {
-    setTimeout(function () {
+  ]).on('change', function (r) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(function () {
       browserSync.reload()
-    }, 500)
+    }, 200)
   });
+
   gulp.watch([
     'models/*.json'
-  ], ['mongoose-scheme-gen', 'crud-routes-gen', 'ngn-form-build']);
+  ], ['crud-routes-gen', 'ngn-build']);
 });
